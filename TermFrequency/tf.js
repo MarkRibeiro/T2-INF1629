@@ -5,14 +5,26 @@ class TermFrequency {
     // Initialize frequency map object
     let frequencyMap = {};
 
+    // Initialize ignored words list
+    const ignoreList = ignoreData.split("\n");
+
     // Fill frequency map with words and frequencies
     inputData.map((item) => {
       const existingEntry = frequencyMap[item];
+      
+      // Ignore word if present in ignoreList
+      const shouldIgnore = ignoreList.includes(item);
 
+      if(shouldIgnore) {
+        return;
+      }
+
+      // Increase word frequency
       if (existingEntry) {
         frequencyMap[item]++;
       }
 
+      // Add word to frequency map
       else {
         frequencyMap[item] = 1;
       }
@@ -41,13 +53,13 @@ class TermFrequency {
     // Write to output
     sortable.map(item => {
       fs.appendFileSync('output.txt', `${item[0]}\n`);
-    })
+    });
   }
 
-  readIgnoreFile() {
+  readIgnoreFile(path) {
     // Return optional file with ignored words
     try {
-      const ignoreData = fs.readFileSync('ignore.txt', 'utf-8');
+      const ignoreData = fs.readFileSync(path, 'utf-8');
 
       return ignoreData;
     }
@@ -57,17 +69,17 @@ class TermFrequency {
     }
   }
 
-  readInputFile(path) {
+  init(inputFilePath, ignoreFilePath) {
     // Read file if one is provided, log error otherwise
     try {
-      let inputData = fs.readFileSync(path, 'utf-8');
+      let inputData = fs.readFileSync(inputFilePath, 'utf-8');
 
       // Remove punctuation and split text into word list
       inputData = inputData.replace(/(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\"|'|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g, "")
       inputData = inputData.split(" ");
 
       // Read file of words to be ignored
-      const ignoreData = this.readIgnoreFile();
+      const ignoreData = this.readIgnoreFile(ignoreFilePath);
 
       this.countTerms(inputData, ignoreData);
     }

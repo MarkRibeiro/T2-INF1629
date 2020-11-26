@@ -10,14 +10,14 @@ router.get('/', function (req, res, next) {
 
 router.get('/download', function (req, res, next) {
   res.download('output.txt');
-})
+});
 
 router.post('/', function (req, res) {
   var form = new multiparty.Form();
   var tf = new TermFrequency();
 
   form.parse(req, function (err, fields, files) {
-    tf.readInputFile(files.input_file[0].path);
+    tf.init(files.input_file[0].path, files.ignore_file[0].path);
   });
 
   res.render('file');
