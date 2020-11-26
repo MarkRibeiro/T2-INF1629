@@ -5,17 +5,21 @@ class TermFrequency {
     // Initialize frequency map object
     let frequencyMap = {};
 
-    // Initialize ignored words list
-    const ignoreList = ignoreData.split("\n");
+    // Initialize ignored words list lowercased
+    let ignoreList = ignoreData.split("\n");
+
+    ignoreList = ignoreList.map(word => {
+      return word.toLowerCase();
+    });
 
     // Fill frequency map with words and frequencies
     inputData.map((item) => {
       const existingEntry = frequencyMap[item];
-      
+
       // Ignore word if present in ignoreList
       const shouldIgnore = ignoreList.includes(item);
 
-      if(shouldIgnore) {
+      if (shouldIgnore) {
         return;
       }
 
@@ -29,6 +33,8 @@ class TermFrequency {
         frequencyMap[item] = 1;
       }
     });
+
+    console.log(frequencyMap);
 
     // Sorting from most to least frequent happens here
     let sortable = [];
@@ -45,14 +51,14 @@ class TermFrequency {
     try {
       fs.unlinkSync('output.txt');
     }
-    
+
     catch {
       console.log('No output file to remove');
     }
 
     // Write to output
     sortable.map(item => {
-      fs.appendFileSync('output.txt', `${item[0]}\n`);
+      fs.appendFileSync('output.txt', `${item[0]} ${item[1]}\n`);
     });
   }
 
@@ -77,6 +83,9 @@ class TermFrequency {
       // Remove punctuation and split text into word list
       inputData = inputData.replace(/(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\"|'|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g, "")
       inputData = inputData.split(" ");
+      inputData = inputData.map(word => {
+        return word.toLowerCase();
+      })
 
       // Read file of words to be ignored
       const ignoreData = this.readIgnoreFile(ignoreFilePath);
