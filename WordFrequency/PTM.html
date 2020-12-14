@@ -1,0 +1,81 @@
+<input type="file" id="file-input" />
+<!-- <button id="text-input-button">Text File</button> -->
+</br>
+<input type="file" id="list-input" />
+<!-- <button id="list-input-button">List File</button> -->
+</br>
+<button id="compute">Compute</button>
+<pre id="file-contents"></pre>
+<script>
+    let textContent = ""
+    let listContent = ""
+    
+    document.querySelector("#file-input").onchange = readTextContents;
+    document.querySelector("#list-input").onchange = readFilterContents;
+    document.querySelector("#compute").onclick = computeWordFrequency;
+
+    function readTextContents() {
+        let reader = new FileReader()
+        reader.onload = function(e) { textContent = e.target.result; };
+
+        let file = document.querySelector("#file-input").files[0];
+        reader.readAsText(file);
+        // console.log(textContent);
+    }
+    
+    function readFilterContents() {
+        let reader = new FileReader()
+        let listInput = document.querySelector("#list-input");
+        if (listInput.files.length == 0) {
+            console.log("Sem filtrar palavras.");
+        } else {
+            reader.onload = function(e) { listContent = e.target.result; };
+            
+            let file = listInput.files[0];
+            reader.readAsText(file);
+            // console.log(listContent);
+        }
+    }
+
+    const wordRegex = /\w+/g
+    function computeWordFrequency() {
+        let frequencyDict = {}
+        let filterList = listContent.split("\n")
+
+        let matchResult;
+        do {
+            matchResult = wordRegex.exec(textContent);
+            if (matchResult) { // Se há um match
+                // Coloque a palavra em minúsculas
+                let match = matchResult[0].toLowerCase();
+                
+                // Pule para outra palavra se o filtro tem a palavra atual
+                if (filterList.indexOf(match) >= 0) { continue; }
+                
+                if (frequencyDict[match]) { // Se a palavra já estiver sido contada
+                    // Incremente 1
+                    frequencyDict[match] = frequencyDict[match] + 1
+                } else { // Senão
+                    frequencyDict[match] = 1 // Inicialize como 1
+                }
+            }
+        } while (matchResult); // Faça enquanto houver uma match
+
+        // Lista de palavras em ordem de mais frequente para menos frequente
+        let orderedFreq = []
+        for (var word in frequencyDict) {
+            // Encontre a posição que faz com que a inserção ocorra de forma que
+            // a ordem das palavras se mantenha decrescente
+            let insertionIndex = 0;
+            for (let i = 0; i < orderedFreq.length; i++) {
+                if (orderedFreq[i][1] > frequencyDict[word]) {
+                    insertionIndex = i + 1;
+                }
+            }
+            // Insira a tupla na posição determinada anteriormente
+            orderedFreq.splice(insertionIndex, 0, [word, frequencyDict[word]])
+        }
+        document.getElementById("file-contents").innerHTML = orderedFreq.join("\n");
+    }
+    
+</script>
