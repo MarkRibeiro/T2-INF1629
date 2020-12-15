@@ -1,8 +1,10 @@
 ## [Acesso direto ao produto final](https://MarkRibeiro.github.io)
 
-## Introdução
 - **Disciplina:** INF1629
 - **Professor:** Julio Cesar Sampaio do Prado Leite
+
+## Introdução
+O produto final tem como objetivo contar as palavras escritas em um arquivo de texto. Além disso, é necessário que o usuário possa inserir outro arquivo de texto com uma palavra em cada linha para que ela seja usada como filtro, ou seja, as palavras contidas nesse segundo arquivo são ignoradas na contagem de palavras do primeiro.
 
 ## Cronograma
 |Tarefa|Status|Entrega|
