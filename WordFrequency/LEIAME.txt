@@ -1,6 +1,0 @@
-1° Passo: Abra o PTM.html com seu navegador de escolha
-2° Passo: Ao lado de "Arquivo do texto" clique em "Browse..." e selecione o arquivo de texto que deseja utilizar
-3° Passo: Ao lado de "Arquivo do filtro de palavras" clique em "Browse..." e selecione o arquivo com a lista de palavras a serem filtradas que deseja utilizar(esta entrada de arquivo é opcional caso n queira aplicar nenhum filtro pule para o 4° Passo)
-4° Passo: clique em "Computar"
-
-O resultado será exibido abaixo do botão "Computar" :)
