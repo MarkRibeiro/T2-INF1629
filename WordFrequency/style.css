@@ -1,0 +1,73 @@
+/* Personalização das inserções de arquivos */
+.custom-file-input, .custom-list-input {
+  color: transparent;
+}
+.custom-file-input::-webkit-file-upload-button, .custom-list-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before, .custom-list-input::before {
+  color: black;
+  display: inline-block;
+  background-color: #DDD;
+  /*border: 1px solid #999;*/
+  border-radius: 8pt;
+  width:150pt;
+  text-align:center;
+  /*margin: 10 10;*/
+  padding: 10px 20px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  /*text-shadow: 1px 1px #fff;*/
+  font-weight: 700;
+  font-size: 10pt;
+}
+.custom-file-input::before {
+  content: 'Selecionar texto';
+}
+.custom-list-input::before {
+  content: 'Selecionar palavras filtradas';
+}
+
+/* Personalização do botão Computar */
+.compute-button-style {
+  background-color: #DDD; /* Green */
+  width: 100pt;
+  height: 30pt;
+  border-radius: 8pt;
+  border: none;
+  color: #111;
+  font-weight: bold;
+  /*padding: 0px 0px;*/
+  /*margin-left: 135pt;*/
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+}
+.compute-button-style:hover {
+  background-color: #AAA;
+  color: black;
+}
+
+/* Personalização de todos os elementos */
+.compute-button-style:active, .custom-file-input:active::before, .custom-list-input:active::before {
+  background-color: black;
+  color: white;
+}
+
+body {
+  padding: 20px;
+  font-family: sans-serif;
+}
+/*.custom-file-input:hover::before, .custom-list-input::hover::before {
+  border-color: black;
+}*/
+/*.custom-file-input:active, .custom-list-input:active {
+  outline: 0;
+}*/
+/*.custom-file-input:active::before, .custom-list-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+  background-color: light-gray;
+}*/
